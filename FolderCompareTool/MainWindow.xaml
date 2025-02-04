@@ -6,114 +6,129 @@
         xmlns:hc="https://handyorg.github.io/handycontrol"
         xmlns:local="clr-namespace:FolderCompareTool"
         mc:Ignorable="d" UseLayoutRounding="True" WindowStartupLocation="CenterScreen"
-        Title="文件夹同名文件寻找工具" Height="700" Width="500">
+        Title="文件夹同名文件寻找工具" Height="700" MinHeight="300" Width="500" MinWidth="300">
     <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="5"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Margin="0,0,0,5" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4">
-            <Grid Margin="5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-                <ComboBox Grid.Column="0" hc:InfoElement.Title="比较模式" Width="130" SelectedIndex="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=CompareMode}" Style="{StaticResource ComboBoxExtend}" hc:InfoElement.Necessary="True">
-                    <ComboBoxItem Content="文件名"/>
-                    <ComboBoxItem Content="文件名与哈希值"/>
-                </ComboBox>
-                <hc:NumericUpDown Grid.Column="1" Margin="5,0,0,0" hc:InfoElement.Title="文件名容差" Width="100" Value="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=FileNameTolerance}" Maximum="5" Minimum="0" Style="{StaticResource NumericUpDownExtend}" hc:InfoElement.Necessary="True"/>
-                <Button Grid.Column="3" x:Name="CompareBT" Height="48" Width="48" Content="比较" Click="CompareBT_Click">
-                    <Button.Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource ButtonPrimary}">
-                            <Setter Property="IsEnabled" Value="True"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text.Length, ElementName=Folder1TB}" Value="0">
-                                    <Setter Property="IsEnabled" Value="False"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Text.Length, ElementName=Folder2TB}" Value="0">
-                                    <Setter Property="IsEnabled" Value="False"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
-            </Grid>
-        </Border>
-        <Border Grid.Row="1" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4">
+        <Border Grid.Row="0" Grid.ColumnSpan="2" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4">
             <Grid Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <DockPanel Grid.Row="0" Margin="0,0,0,5">
                     <Button DockPanel.Dock="Right" x:Name="Folder1SelBT" Click="Folder1SelBT_Click" Style="{StaticResource ButtonIcon}" hc:IconElement.Geometry="{StaticResource SelectFolder}" Foreground="{DynamicResource PrimaryBrush}"/>
                     <hc:TextBox x:Name="Folder1TB" hc:InfoElement.Placeholder="文件夹1" Margin="0,0,5,0"/>
                 </DockPanel>
-                <DockPanel Grid.Row="1" Margin="0,0,0,5">
+                <DockPanel Grid.Row="1">
                     <Button DockPanel.Dock="Right" x:Name="Folder2SelBT" Click="Folder2SelBT_Click" Style="{StaticResource ButtonIcon}" hc:IconElement.Geometry="{StaticResource SelectFolder}" Foreground="{DynamicResource PrimaryBrush}"/>
                     <hc:TextBox x:Name="Folder2TB" hc:InfoElement.Placeholder="文件夹2" Margin="0,0,5,0"/>
                 </DockPanel>
-                <ListBox Grid.Row="2" x:Name="FileLB" Style="{StaticResource ListBox.Small}">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemBaseStyle.Small}">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                            <Setter Property="ContextMenu">
-                                <Setter.Value>
-                                    <ContextMenu>
-                                        <MenuItem Header="删除文件夹1中的项">
-                                            <MenuItem.Icon>
-                                                <Path VerticalAlignment="Center" HorizontalAlignment="Center" Fill="{DynamicResource DangerBrush}" Stretch="Uniform" Data="{StaticResource DeleteFillCircleGeometry}"/>
-                                            </MenuItem.Icon>
-                                        </MenuItem>
-                                        <MenuItem Header="删除文件夹2中的项">
-                                            <MenuItem.Icon>
-                                                <Path VerticalAlignment="Center" HorizontalAlignment="Center" Fill="{DynamicResource DangerBrush}" Stretch="Uniform" Data="{StaticResource DeleteFillCircleGeometry}"/>
-                                            </MenuItem.Icon>
-                                        </MenuItem>
-                                    </ContextMenu>
-                                </Setter.Value>
-                            </Setter>
-                            <EventSetter Event="MouseDoubleClick" Handler="FileLBItem_MouseDoubleClick"/>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="auto"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding FileName1}" TextTrimming="CharacterEllipsis"/>
-                                <TextBlock Grid.Column="0" Grid.Row="1" FontSize="10" Text="{Binding FilePath1}" TextTrimming="CharacterEllipsis" Opacity=".5"/>
-                                <TextBlock Grid.Column="0" Grid.Row="2" FontSize="10" Text="{Binding FilePath2}" TextTrimming="CharacterEllipsis" Opacity=".5"/>
-                                <TextBlock Grid.Column="1" Grid.Row="1" FontSize="10" Text="{Binding FileSize1, StringFormat={}　文件大小 {0}}" Opacity=".5"/>
-                                <TextBlock Grid.Column="1" Grid.Row="2" FontSize="10" Text="{Binding FileSize2, StringFormat={}　文件大小 {0}}" Opacity=".5"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-                <TextBlock Grid.Row="2" Text="无项目" Foreground="{DynamicResource SecondaryTextBrush}" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Items.Count, ElementName=FileLB}" Value="0">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
             </Grid>
+        </Border>
+        <Border Grid.Row="2" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4">
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0" hc:InfoElement.Title="比较模式" Width="125" SelectedIndex="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=CompareMode}" Style="{StaticResource ComboBoxExtend}">
+                    <ComboBoxItem Content="文件名"/>
+                    <ComboBoxItem Content="文件名与哈希值"/>
+                </ComboBox>
+                <ComboBox Grid.Column="1" Margin="5,0,0,0" hc:InfoElement.Title="哈希值算法" Width="90" SelectedIndex="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=HashAlgorithm}" Style="{StaticResource ComboBoxExtend}">
+                    <ComboBoxItem Content="MD5"/>
+                    <ComboBoxItem Content="SHA256"/>
+                </ComboBox>
+                <hc:NumericUpDown Grid.Column="2" Margin="5,0,0,0" hc:InfoElement.Title="文件名容差" Width="90" Value="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=FileNameTolerance}" Maximum="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=FileNameToleranceMax}" Minimum="0" Style="{StaticResource NumericUpDownExtend}"/>
+            </Grid>
+        </Border>
+        <Button Grid.Row="2" Grid.Column="1" Margin="5,0,0,0" x:Name="CompareBT" hc:IconElement.Geometry="{StaticResource SearchGeometry}" Background="{DynamicResource PrimaryBrush}" Foreground="{StaticResource RegionBrush}" Height="60" Width="60" BorderThickness="0" Click="CompareBT_Click">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource ButtonIconCircular}">
+                    <Setter Property="IsEnabled" Value="True"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text.Length, ElementName=Folder1TB}" Value="0">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Text.Length, ElementName=Folder2TB}" Value="0">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <ListBox Grid.Row="4" Grid.ColumnSpan="2" x:Name="FileLB" Style="{StaticResource ListBox.Small}">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemBaseStyle.Small}">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="ContextMenu">
+                        <Setter.Value>
+                            <ContextMenu>
+                                <MenuItem Header="删除文件夹1中的项">
+                                    <MenuItem.Icon>
+                                        <Path VerticalAlignment="Center" HorizontalAlignment="Center" Fill="{DynamicResource DangerBrush}" Stretch="Uniform" Data="{StaticResource DeleteFillCircleGeometry}"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="删除文件夹2中的项">
+                                    <MenuItem.Icon>
+                                        <Path VerticalAlignment="Center" HorizontalAlignment="Center" Fill="{DynamicResource DangerBrush}" Stretch="Uniform" Data="{StaticResource DeleteFillCircleGeometry}"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </ContextMenu>
+                        </Setter.Value>
+                    </Setter>
+                    <EventSetter Event="MouseDoubleClick" Handler="FileLBItem_MouseDoubleClick"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding FileName1}" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock Grid.Column="0" Grid.Row="1" FontSize="10" Text="{Binding FilePath1}" TextTrimming="CharacterEllipsis" Opacity=".5"/>
+                        <TextBlock Grid.Column="0" Grid.Row="2" FontSize="10" Text="{Binding FilePath2}" TextTrimming="CharacterEllipsis" Opacity=".5"/>
+                        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="10" Text="{Binding FileSize1, StringFormat=● 文件大小 {0}}" Opacity=".5"/>
+                        <TextBlock Grid.Column="1" Grid.Row="2" FontSize="10" Text="{Binding FileSize2, StringFormat=● 文件大小 {0}}" Opacity=".5"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBlock Grid.Row="4" Grid.ColumnSpan="2" Text="无项目" Foreground="{DynamicResource SecondaryTextBrush}" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Items.Count, ElementName=FileLB}" Value="0">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <Border Grid.Row="4" Grid.ColumnSpan="2" x:Name="LoadingBD" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4" Visibility="Collapsed">
+            <hc:LoadingCircle/>
         </Border>
     </Grid>
 </Window>
