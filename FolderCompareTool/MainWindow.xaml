@@ -6,7 +6,7 @@
         xmlns:hc="https://handyorg.github.io/handycontrol"
         xmlns:local="clr-namespace:FolderCompareTool"
         mc:Ignorable="d" UseLayoutRounding="True" WindowStartupLocation="CenterScreen"
-        Title="文件夹同名文件寻找工具"
+        Title="重复文件查找工具"
         Icon="/FolderCompareTool;component/icon.ico"
         Height="700" MinHeight="325"
         Width="500" MinWidth="418">
@@ -22,23 +22,7 @@
             <RowDefinition Height="5"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Grid.ColumnSpan="2" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4">
-            <Grid Margin="5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <DockPanel Grid.Row="0" Margin="0,0,0,5">
-                    <Button DockPanel.Dock="Right" x:Name="Folder1SelBT" Click="Folder1SelBT_Click" Style="{StaticResource ButtonIconCircular}" hc:IconElement.Geometry="{StaticResource SelectFolder}" Background="{DynamicResource PrimaryBrush}" Foreground="{DynamicResource RegionBrush}" BorderThickness="0"/>
-                    <hc:TextBox x:Name="Folder1TB" hc:InfoElement.Placeholder="文件夹1" Margin="0,0,5,0"/>
-                </DockPanel>
-                <DockPanel Grid.Row="1">
-                    <Button DockPanel.Dock="Right" x:Name="Folder2SelBT" Click="Folder2SelBT_Click" Style="{StaticResource ButtonIconCircular}" hc:IconElement.Geometry="{StaticResource SelectFolder}" Background="{DynamicResource PrimaryBrush}" Foreground="{DynamicResource RegionBrush}" BorderThickness="0"/>
-                    <hc:TextBox x:Name="Folder2TB" hc:InfoElement.Placeholder="文件夹2" Margin="0,0,5,0"/>
-                </DockPanel>
-            </Grid>
-        </Border>
-        <Border Grid.Row="2" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4">
+        <Border Grid.Row="0" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4">
             <Grid Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -59,7 +43,7 @@
                 <hc:NumericUpDown Grid.Column="2" Margin="5,0,0,0" hc:InfoElement.Title="文件名容差" Width="90" Value="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=FileNameTolerance}" Maximum="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=FileNameToleranceMax}" Minimum="0" Style="{StaticResource NumericUpDownExtend}"/>
             </Grid>
         </Border>
-        <Button Grid.Row="2" Grid.Column="1" Margin="5,0,0,0" x:Name="CompareBT" hc:IconElement.Geometry="{StaticResource SearchGeometry}" Background="{DynamicResource PrimaryBrush}" Foreground="{StaticResource RegionBrush}" Height="60" Width="60" BorderThickness="0" Click="CompareBT_Click">
+        <Button Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" x:Name="CompareBT" hc:IconElement.Geometry="{StaticResource SearchGeometry}" Background="{DynamicResource PrimaryBrush}" Foreground="{StaticResource RegionBrush}" Height="60" Width="60" BorderThickness="0" Click="CompareBT_Click">
             <Button.Style>
                 <Style TargetType="Button" BasedOn="{StaticResource ButtonIconCircular}">
                     <Setter Property="IsEnabled" Value="True"/>
@@ -75,6 +59,22 @@
                 </Style>
             </Button.Style>
         </Button>
+        <Border Grid.Row="2" Grid.ColumnSpan="2" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4">
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <DockPanel Grid.Row="0" Margin="0,0,0,5">
+                    <Button DockPanel.Dock="Right" x:Name="Folder1SelBT" Click="Folder1SelBT_Click" Style="{StaticResource ButtonIconCircular}" hc:IconElement.Geometry="{StaticResource SelectFolder}" Background="{DynamicResource PrimaryBrush}" Foreground="{DynamicResource RegionBrush}" BorderThickness="0"/>
+                    <hc:TextBox x:Name="Folder1TB" hc:InfoElement.Placeholder="文件夹1" Margin="0,0,5,0"/>
+                </DockPanel>
+                <DockPanel Grid.Row="1">
+                    <Button DockPanel.Dock="Right" x:Name="Folder2SelBT" Click="Folder2SelBT_Click" Style="{StaticResource ButtonIconCircular}" hc:IconElement.Geometry="{StaticResource SelectFolder}" Background="{DynamicResource PrimaryBrush}" Foreground="{DynamicResource RegionBrush}" BorderThickness="0"/>
+                    <hc:TextBox x:Name="Folder2TB" hc:InfoElement.Placeholder="文件夹2" Margin="0,0,5,0"/>
+                </DockPanel>
+            </Grid>
+        </Border>
         <ListBox Grid.Row="4" Grid.ColumnSpan="2" x:Name="FileLB" Style="{StaticResource ListBox.Small}">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemBaseStyle.Small}">
