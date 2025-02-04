@@ -7,7 +7,7 @@ namespace FolderCompareTool
     {
         public static AppConfig? appConfig;
 
-        private static readonly string[] Units = { "B", "KB", "MB", "GB", "TB" };
+        private static readonly string[] Units = ["B", "KB", "MB", "GB", "TB"];
 
         public static string FormatFileSize(long bytes, bool useDecimal = false)
         {
@@ -19,7 +19,6 @@ namespace FolderCompareTool
                 size /= divisor;
                 unitIndex++;
             }
-
             return $"{size:0.##} {Units[unitIndex]}";
         }
 

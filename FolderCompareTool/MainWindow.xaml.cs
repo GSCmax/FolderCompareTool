@@ -18,7 +18,7 @@ namespace FolderCompareTool
         FileInfo[]? files2;
         List<Tuple<FileInfo, FileInfo>>? matchedPairs;
 
-        BackgroundWorker backgroundWorker = new();
+        readonly BackgroundWorker backgroundWorker = new();
 
         public MainWindow()
         {
@@ -75,7 +75,7 @@ namespace FolderCompareTool
             }
 
             //文件大小匹配
-            if (GlobalDataHelper.appConfig!.CompareMode >= 1 && matchedPairs.Count() != 0)
+            if (GlobalDataHelper.appConfig!.CompareMode >= 1 && matchedPairs.Count != 0)
             {
                 for (int i = matchedPairs.Count - 1; i >= 0; i--)
                 {
@@ -87,7 +87,7 @@ namespace FolderCompareTool
             }
 
             //文件哈希匹配
-            if (GlobalDataHelper.appConfig!.CompareMode == 2 && matchedPairs.Count() != 0)
+            if (GlobalDataHelper.appConfig!.CompareMode == 2 && matchedPairs.Count != 0)
             {
                 for (int i = matchedPairs.Count - 1; i >= 0; i--)
                 {
@@ -108,7 +108,7 @@ namespace FolderCompareTool
                 Folder2SelBT.IsEnabled = true;
                 LoadingBD.Visibility = Visibility.Collapsed;
 
-                if (matchedPairs!.Count() != 0)
+                if (matchedPairs!.Count != 0)
                 {
                     foreach (var file in matchedPairs!)
                     {
@@ -168,7 +168,7 @@ namespace FolderCompareTool
         /// <param name="fullName"></param>
         /// <param name="mode">0=MD5,1=SHA256</param>
         /// <returns></returns>
-        private string GetFileHash(string fullName, int mode)
+        private static string GetFileHash(string fullName, int mode)
         {
             if (mode == 0)
                 return GetFileMD5(fullName);
@@ -181,21 +181,15 @@ namespace FolderCompareTool
         /// </summary>
         /// <param name="fullName"></param>
         /// <returns></returns>
-        private string GetFileSHA256(string fullName)
+        private static string GetFileSHA256(string fullName)
         {
-            using (FileStream fileStream = new(fullName, FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
-                using (SHA256 sha256 = SHA256.Create())
-                {
-                    byte[] hash = sha256.ComputeHash(fileStream);
-                    StringBuilder stringBuilder = new();
-                    for (int i = 0; i < hash.Length; i++)
-                    {
-                        stringBuilder.Append(hash[i].ToString("X2"));
-                    }
-                    return stringBuilder.ToString();
-                }
-            }
+            using FileStream fileStream = new(fullName, FileMode.Open, FileAccess.Read, FileShare.Read);
+            using SHA256 sha256 = SHA256.Create();
+            byte[] hash = sha256.ComputeHash(fileStream);
+            StringBuilder stringBuilder = new();
+            for (int i = 0; i < hash.Length; i++)
+                stringBuilder.Append(hash[i].ToString("X2"));
+            return stringBuilder.ToString();
         }
 
         /// <summary>
@@ -203,16 +197,12 @@ namespace FolderCompareTool
         /// </summary>
         /// <param name="fullName"></param>
         /// <returns></returns>
-        private string GetFileMD5(string fullName)
+        private static string GetFileMD5(string fullName)
         {
-            using (FileStream fileStream = new(fullName, FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
-                using (MD5 md5 = MD5.Create())
-                {
-                    byte[] hash = md5.ComputeHash(fileStream);
-                    return BitConverter.ToString(hash).Replace("-", "");
-                }
-            }
+            using FileStream fileStream = new(fullName, FileMode.Open, FileAccess.Read, FileShare.Read);
+            using MD5 md5 = MD5.Create();
+            byte[] hash = md5.ComputeHash(fileStream);
+            return BitConverter.ToString(hash).Replace("-", "");
         }
 
         /// <summary>
@@ -221,7 +211,7 @@ namespace FolderCompareTool
         /// <param name="s1"></param>
         /// <param name="s2"></param>
         /// <returns></returns>
-        private int LevenshteinDistance(string s1, string s2)
+        private static int LevenshteinDistance(string s1, string s2)
         {
             if (s1 == s2) return 0;
 
