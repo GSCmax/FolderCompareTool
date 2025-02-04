@@ -6,7 +6,10 @@
         xmlns:hc="https://handyorg.github.io/handycontrol"
         xmlns:local="clr-namespace:FolderCompareTool"
         mc:Ignorable="d" UseLayoutRounding="True" WindowStartupLocation="CenterScreen"
-        Title="文件夹同名文件寻找工具" Height="700" MinHeight="300" Width="500" MinWidth="300">
+        Title="文件夹同名文件寻找工具"
+        Icon="/FolderCompareTool;component/icon.ico"
+        Height="700" MinHeight="300"
+        Width="500" MinWidth="300">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -46,6 +49,7 @@
                 </Grid.ColumnDefinitions>
                 <ComboBox Grid.Column="0" hc:InfoElement.Title="比较模式" Width="125" SelectedIndex="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=CompareMode}" Style="{StaticResource ComboBoxExtend}">
                     <ComboBoxItem Content="文件名"/>
+                    <ComboBoxItem Content="文件名与大小"/>
                     <ComboBoxItem Content="文件名与哈希值"/>
                 </ComboBox>
                 <ComboBox Grid.Column="1" Margin="5,0,0,0" hc:InfoElement.Title="哈希值算法" Width="90" SelectedIndex="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=HashAlgorithm}" Style="{StaticResource ComboBoxExtend}">
@@ -75,6 +79,7 @@
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemBaseStyle.Small}">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
                     <Setter Property="ContextMenu">
                         <Setter.Value>
                             <ContextMenu>
@@ -107,10 +112,10 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding FileName1}" TextTrimming="CharacterEllipsis"/>
-                        <TextBlock Grid.Column="0" Grid.Row="1" FontSize="10" Text="{Binding FilePath1}" TextTrimming="CharacterEllipsis" Opacity=".5"/>
-                        <TextBlock Grid.Column="0" Grid.Row="2" FontSize="10" Text="{Binding FilePath2}" TextTrimming="CharacterEllipsis" Opacity=".5"/>
-                        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="10" Text="{Binding FileSize1, StringFormat=● 文件大小 {0}}" Opacity=".5"/>
-                        <TextBlock Grid.Column="1" Grid.Row="2" FontSize="10" Text="{Binding FileSize2, StringFormat=● 文件大小 {0}}" Opacity=".5"/>
+                        <TextBlock Grid.Column="0" Grid.Row="1" FontSize="10" Text="{Binding FilePath1}" TextTrimming="CharacterEllipsis" Opacity=".6"/>
+                        <TextBlock Grid.Column="0" Grid.Row="2" FontSize="10" Text="{Binding FilePath2}" TextTrimming="CharacterEllipsis" Opacity=".6"/>
+                        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="10" Text="{Binding FileSize1, StringFormat=● 文件大小 {0}}" Opacity=".6"/>
+                        <TextBlock Grid.Column="1" Grid.Row="2" FontSize="10" Text="{Binding FileSize2, StringFormat=● 文件大小 {0}}" Opacity=".6"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
