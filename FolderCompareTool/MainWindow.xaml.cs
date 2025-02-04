@@ -13,8 +13,9 @@ namespace FolderCompareTool
     /// </summary>
     public partial class MainWindow : Window
     {
-        DirectoryInfo? directoryInfo1;
-        DirectoryInfo? directoryInfo2;
+        FileInfo[]? files1;
+        FileInfo[]? files2;
+        List<Tuple<FileInfo, FileInfo>>? matchedPairs;
 
         public MainWindow()
         {
@@ -39,13 +40,16 @@ namespace FolderCompareTool
         {
             FileLB.Items.Clear();
 
-            directoryInfo1 = new DirectoryInfo(Folder1TB.Text);
-            directoryInfo2 = new DirectoryInfo(Folder2TB.Text);
-
-            FileInfo[] files1 = directoryInfo1.GetFiles("*.*", SearchOption.TopDirectoryOnly);
-            FileInfo[] files2 = directoryInfo2.GetFiles("*.*", SearchOption.TopDirectoryOnly);
-
-            List<Tuple<FileInfo, FileInfo>> matchedPairs;
+            try
+            {
+                files1 = new DirectoryInfo(Folder1TB.Text).GetFiles("*.*", SearchOption.TopDirectoryOnly);
+                files2 = new DirectoryInfo(Folder2TB.Text).GetFiles("*.*", SearchOption.TopDirectoryOnly);
+            }
+            catch
+            {
+                MessageBox.Show("文件夹路径错误", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             if (GlobalDataHelper.appConfig!.FileNameTolerance == 0)
             {
@@ -91,7 +95,7 @@ namespace FolderCompareTool
                         // 提前判断文件大小，若不一致则哈希值必不相等
                         if (file.Item1.Length == file.Item2.Length)
                         {
-                            if (GetFileHash(file.Item1.FullName) == GetFileHash(file.Item2.FullName))
+                            if (GetFileMD5(file.Item1.FullName) == GetFileMD5(file.Item2.FullName))
                             {
                                 FileLB.Items.Add(new SameNameFile
                                 {
@@ -124,6 +128,18 @@ namespace FolderCompareTool
             }
         }
 
+        private void FileLBItem_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            SameNameFile snf = ((sender as ListBoxItem)!.Content as SameNameFile)!;
+            Process.Start("explorer.exe", $"/select, \"{snf.FilePath1}\"");
+            Process.Start("explorer.exe", $"/select, \"{snf.FilePath2}\"");
+        }
+
+        /// <summary>
+        /// 计算文件的SHA256哈希值
+        /// </summary>
+        /// <param name="fullName"></param>
+        /// <returns></returns>
         private string GetFileHash(string fullName)
         {
             using (FileStream fileStream = new(fullName, FileMode.Open))
@@ -141,6 +157,29 @@ namespace FolderCompareTool
             }
         }
 
+        /// <summary>
+        /// 计算文件的MD5哈希值
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        private string GetFileMD5(string filePath)
+        {
+            using (FileStream fileStream = new(filePath, FileMode.Open))
+            {
+                using (MD5 md5 = MD5.Create())
+                {
+                    byte[] hash = md5.ComputeHash(fileStream);
+                    return BitConverter.ToString(hash).Replace("-", "");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 计算两个字符串的Levenshtein距离
+        /// </summary>
+        /// <param name="s1"></param>
+        /// <param name="s2"></param>
+        /// <returns></returns>
         private int LevenshteinDistance(string s1, string s2)
         {
             if (s1 == s2) return 0;
@@ -162,13 +201,6 @@ namespace FolderCompareTool
             }
 
             return matrix[m, n];
-        }
-
-        private void FileLBItem_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            SameNameFile snf = ((sender as ListBoxItem)!.Content as SameNameFile)!;
-            Process.Start("explorer.exe", $"/select, \"{snf.FilePath1}\"");
-            Process.Start("explorer.exe", $"/select, \"{snf.FilePath2}\"");
         }
     }
 }
