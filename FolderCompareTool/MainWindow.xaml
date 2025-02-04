@@ -8,8 +8,8 @@
         mc:Ignorable="d" UseLayoutRounding="True" WindowStartupLocation="CenterScreen"
         Title="文件夹同名文件寻找工具"
         Icon="/FolderCompareTool;component/icon.ico"
-        Height="700" MinHeight="300"
-        Width="500" MinWidth="300">
+        Height="700" MinHeight="325"
+        Width="500" MinWidth="418">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
