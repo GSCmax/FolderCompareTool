@@ -68,18 +68,19 @@
         </ToggleButton>
         <Border Grid.Row="2" Grid.ColumnSpan="2" x:Name="BD2" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4">
             <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="5"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <DockPanel Grid.Row="0" Margin="0,0,0,5">
-                    <Button DockPanel.Dock="Right" x:Name="Folder1SelBT" Click="Folder1SelBT_Click" Style="{StaticResource ButtonIconCircular}" hc:IconElement.Geometry="{StaticResource SelectFolder}" Background="{DynamicResource PrimaryBrush}" Foreground="{DynamicResource RegionBrush}" BorderThickness="0"/>
-                    <hc:TextBox x:Name="Folder1TB" hc:InfoElement.Placeholder="文件夹1" Margin="0,0,5,0"/>
-                </DockPanel>
-                <DockPanel Grid.Row="1">
-                    <Button DockPanel.Dock="Right" x:Name="Folder2SelBT" Click="Folder2SelBT_Click" Style="{StaticResource ButtonIconCircular}" hc:IconElement.Geometry="{StaticResource SelectFolder}" Background="{DynamicResource PrimaryBrush}" Foreground="{DynamicResource RegionBrush}" BorderThickness="0"/>
-                    <hc:TextBox x:Name="Folder2TB" hc:InfoElement.Placeholder="文件夹2" Margin="0,0,5,0"/>
-                </DockPanel>
+                <hc:TextBox Grid.Column="0" Grid.Row="0" x:Name="Folder1TB" hc:InfoElement.Placeholder="文件夹1" Margin="0,0,5,0"/>
+                <hc:TextBox Grid.Column="0" Grid.Row="2" x:Name="Folder2TB" hc:InfoElement.Placeholder="文件夹2" Margin="0,0,5,0"/>
+                <Button Grid.Column="1" Grid.Row="0" x:Name="Folder1SelBT" Click="Folder1SelBT_Click" Style="{StaticResource ButtonIconCircular}" hc:IconElement.Geometry="{StaticResource SelectFolder}" Background="{DynamicResource PrimaryBrush}" Foreground="{DynamicResource RegionBrush}" BorderThickness="0"/>
+                <Button Grid.Column="1" Grid.Row="2" x:Name="Folder2SelBT" Click="Folder2SelBT_Click" Style="{StaticResource ButtonIconCircular}" hc:IconElement.Geometry="{StaticResource SelectFolder}" Background="{DynamicResource PrimaryBrush}" Foreground="{DynamicResource RegionBrush}" BorderThickness="0"/>
             </Grid>
         </Border>
         <ListBox Grid.Row="4" Grid.ColumnSpan="2" x:Name="FileLB" Style="{StaticResource ListBox.Small}">
