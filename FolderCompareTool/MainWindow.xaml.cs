@@ -32,7 +32,8 @@ namespace FolderCompareTool
             //状态设置
             Dispatcher.Invoke(() =>
             {
-                SetControlsState(false);
+                LoadingBD.Visibility = Visibility.Visible;
+
                 FileLB.Items.Clear();
             });
 
@@ -110,7 +111,7 @@ namespace FolderCompareTool
         {
             Dispatcher.Invoke(() =>
             {
-                SetControlsState(true);
+                LoadingBD.Visibility = Visibility.Collapsed;
 
                 if (matchedPairs!.Count != 0)
                 {
@@ -174,28 +175,6 @@ namespace FolderCompareTool
         private void TopmostBT_Unchecked(object sender, RoutedEventArgs e)
         {
             Topmost = false;
-        }
-
-        /// <summary>
-        /// 统一设置控件状态
-        /// </summary>
-        /// <param name="state"></param>
-        private void SetControlsState(bool state)
-        {
-            if (state)
-            {
-                CompareBT.IsEnabled = true;
-                BD1.IsEnabled = true;
-                BD2.IsEnabled = true;
-                LoadingBD.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                CompareBT.IsEnabled = false;
-                BD1.IsEnabled = false;
-                BD2.IsEnabled = false;
-                LoadingBD.Visibility = Visibility.Visible;
-            }
         }
 
         /// <summary>

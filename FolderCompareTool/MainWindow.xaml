@@ -140,8 +140,11 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <Border Grid.Row="4" Grid.ColumnSpan="2" x:Name="LoadingBD" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4" Visibility="Collapsed">
-            <hc:LoadingCircle/>
+        <Border Grid.Row="0" Grid.RowSpan="5" Grid.ColumnSpan="2" x:Name="LoadingBD" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4" Visibility="Collapsed">
+            <hc:SimplePanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="请等待" Foreground="{DynamicResource SecondaryTextBrush}" FontSize="32" Margin="0,0,0,150"/>
+                <hc:LoadingCircle/>
+            </hc:SimplePanel>
         </Border>
     </Grid>
 </Window>
