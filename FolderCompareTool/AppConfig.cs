@@ -10,6 +10,10 @@
 
         public int FileNameToleranceMax { get; set; } = 5;
 
+        public int FileSizeTolerance { get; set; } = 0;
+                       
+        public int FileSizeToleranceMax { get; set; } = 1024;
+
         public int HashAlgorithm { get; set; } = 0;
     }
 }

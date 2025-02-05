@@ -75,11 +75,11 @@ namespace FolderCompareTool
             }
 
             //文件大小匹配
-            if (GlobalDataHelper.appConfig!.CompareMode >= 1 && matchedPairs.Count != 0)
+            if (GlobalDataHelper.appConfig!.CompareMode == 1 && matchedPairs.Count != 0)
             {
                 for (int i = matchedPairs.Count - 1; i >= 0; i--)
                 {
-                    if (matchedPairs[i].Item1.Length != matchedPairs[i].Item2.Length)
+                    if (Math.Abs(matchedPairs[i].Item1.Length - matchedPairs[i].Item2.Length) > GlobalDataHelper.appConfig!.FileSizeTolerance)
                     {
                         matchedPairs.RemoveAt(i);
                     }
@@ -91,9 +91,19 @@ namespace FolderCompareTool
             {
                 for (int i = matchedPairs.Count - 1; i >= 0; i--)
                 {
-                    if (GetFileHash(matchedPairs[i].Item1.FullName, GlobalDataHelper.appConfig!.HashAlgorithm) != GetFileHash(matchedPairs[i].Item2.FullName, GlobalDataHelper.appConfig!.HashAlgorithm))
+                    if (matchedPairs[i].Item1.Length != matchedPairs[i].Item2.Length)
                     {
                         matchedPairs.RemoveAt(i);
+                    }
+                }
+                if (matchedPairs.Count != 0)
+                {
+                    for (int i = matchedPairs.Count - 1; i >= 0; i--)
+                    {
+                        if (GetFileHash(matchedPairs[i].Item1.FullName, GlobalDataHelper.appConfig!.HashAlgorithm) != GetFileHash(matchedPairs[i].Item2.FullName, GlobalDataHelper.appConfig!.HashAlgorithm))
+                        {
+                            matchedPairs.RemoveAt(i);
+                        }
                     }
                 }
             }

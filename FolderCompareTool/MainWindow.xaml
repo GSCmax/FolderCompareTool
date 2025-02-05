@@ -9,7 +9,7 @@
         Title="重复文件查找工具"
         Icon="/FolderCompareTool;component/icon.ico"
         Height="700" MinHeight="325"
-        Width="500" MinWidth="418">
+        Width="503" MinWidth="503">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -28,19 +28,20 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition/>
                     <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <ComboBox Grid.Column="0" hc:InfoElement.Title="比较模式" Width="125" SelectedIndex="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=CompareMode}" Style="{StaticResource ComboBoxExtend}">
+                <ComboBox Grid.Column="0" hc:InfoElement.Title="比较模式" Width="115" SelectedIndex="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=CompareMode}" Style="{StaticResource ComboBoxExtend}">
                     <ComboBoxItem Content="文件名"/>
                     <ComboBoxItem Content="文件名与大小"/>
-                    <ComboBoxItem Content="文件名与哈希值"/>
+                    <ComboBoxItem Content="文件名与哈希"/>
                 </ComboBox>
-                <ComboBox Grid.Column="1" Margin="5,0,0,0" hc:InfoElement.Title="哈希值算法" Width="90" SelectedIndex="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=HashAlgorithm}" Style="{StaticResource ComboBoxExtend}">
+                <ComboBox Grid.Column="1" Margin="5,0,0,0" hc:InfoElement.Title="哈希算法" Width="90" SelectedIndex="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=HashAlgorithm}" Style="{StaticResource ComboBoxExtend}">
                     <ComboBoxItem Content="MD5"/>
                     <ComboBoxItem Content="SHA256"/>
                 </ComboBox>
                 <hc:NumericUpDown Grid.Column="2" Margin="5,0,0,0" hc:InfoElement.Title="文件名容差" Width="90" Value="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=FileNameTolerance}" Maximum="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=FileNameToleranceMax}" Minimum="0" Style="{StaticResource NumericUpDownExtend}"/>
+                <hc:NumericUpDown Grid.Column="3" Margin="5,0,0,0" hc:InfoElement.Title="文件大小容差" Width="90" Value="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=FileSizeTolerance}" Maximum="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=FileSizeToleranceMax}" Minimum="0" Increment="32"  Style="{StaticResource NumericUpDownExtend}"/>
             </Grid>
         </Border>
         <Button Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" x:Name="CompareBT" hc:IconElement.Geometry="{StaticResource SearchGeometry}" Background="{DynamicResource PrimaryBrush}" Foreground="{StaticResource RegionBrush}" Height="60" Width="60" BorderThickness="0" Click="CompareBT_Click">
