@@ -32,10 +32,7 @@ namespace FolderCompareTool
             //状态设置
             Dispatcher.Invoke(() =>
             {
-                CompareBT.IsEnabled = false;
-                Folder1SelBT.IsEnabled = false;
-                Folder2SelBT.IsEnabled = false;
-                LoadingBD.Visibility = Visibility.Visible;
+                SetControlsState(false);
                 FileLB.Items.Clear();
             });
 
@@ -113,10 +110,7 @@ namespace FolderCompareTool
         {
             Dispatcher.Invoke(() =>
             {
-                CompareBT.IsEnabled = true;
-                Folder1SelBT.IsEnabled = true;
-                Folder2SelBT.IsEnabled = true;
-                LoadingBD.Visibility = Visibility.Collapsed;
+                SetControlsState(true);
 
                 if (matchedPairs!.Count != 0)
                 {
@@ -170,6 +164,38 @@ namespace FolderCompareTool
             SameNameFile snf = ((sender as ListBoxItem)!.Content as SameNameFile)!;
             Process.Start("explorer.exe", $"/select, \"{snf.FilePath1}\"");
             Process.Start("explorer.exe", $"/select, \"{snf.FilePath2}\"");
+        }
+
+        private void TopmostBT_Checked(object sender, RoutedEventArgs e)
+        {
+            Topmost = true;
+        }
+
+        private void TopmostBT_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Topmost = false;
+        }
+
+        /// <summary>
+        /// 统一设置控件状态
+        /// </summary>
+        /// <param name="state"></param>
+        private void SetControlsState(bool state)
+        {
+            if (state)
+            {
+                CompareBT.IsEnabled = true;
+                BD1.IsEnabled = true;
+                BD2.IsEnabled = true;
+                LoadingBD.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                CompareBT.IsEnabled = false;
+                BD1.IsEnabled = false;
+                BD2.IsEnabled = false;
+                LoadingBD.Visibility = Visibility.Visible;
+            }
         }
 
         /// <summary>

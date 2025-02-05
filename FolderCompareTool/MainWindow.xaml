@@ -22,7 +22,7 @@
             <RowDefinition Height="5"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4">
+        <Border Grid.Row="0" x:Name="BD1" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4">
             <Grid Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -60,7 +60,13 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Border Grid.Row="2" Grid.ColumnSpan="2" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4">
+        <ToggleButton Grid.Row="0" Grid.Column="1" x:Name="TopmostBT" VerticalAlignment="Top" HorizontalAlignment="Right" Style="{StaticResource ToggleButtonFlip}" Height="15" Width="15" BorderThickness="0" IsChecked="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=IsTopmost}" Checked="TopmostBT_Checked" Unchecked="TopmostBT_Unchecked">
+            <hc:StatusSwitchElement.CheckedElement>
+                <Border Background="{DynamicResource SuccessBrush}"/>
+            </hc:StatusSwitchElement.CheckedElement>
+            <Border Background="{DynamicResource SecondaryRegionBrush}"/>
+        </ToggleButton>
+        <Border Grid.Row="2" Grid.ColumnSpan="2" x:Name="BD2" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4">
             <Grid Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
