@@ -37,6 +37,7 @@
                     <ComboBoxItem Content="文件名与哈希"/>
                 </ComboBox>
                 <ComboBox Grid.Column="1" Margin="5,0,0,0" hc:InfoElement.Title="哈希算法" Width="90" SelectedIndex="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=HashAlgorithm}" Style="{StaticResource ComboBoxExtend}">
+                    <ComboBoxItem Content="CRC32"/>
                     <ComboBoxItem Content="MD5"/>
                     <ComboBoxItem Content="SHA256"/>
                 </ComboBox>
@@ -44,7 +45,7 @@
                 <hc:NumericUpDown Grid.Column="3" Margin="5,0,0,0" hc:InfoElement.Title="文件大小容差" Width="90" Value="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=FileSizeTolerance}" Maximum="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=FileSizeToleranceMax}" Minimum="0" Increment="32"  Style="{StaticResource NumericUpDownExtend}"/>
             </Grid>
         </Border>
-        <Button Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" x:Name="CompareBT" hc:IconElement.Geometry="{StaticResource SearchGeometry}" Background="{DynamicResource PrimaryBrush}" Foreground="{StaticResource RegionBrush}" Height="60" Width="60" BorderThickness="0" Click="CompareBT_Click">
+        <Button Grid.Row="0" Grid.Column="1" Margin="5,0,0,0" x:Name="CompareBT" hc:IconElement.Geometry="{StaticResource SearchGeometry}" Background="{DynamicResource PrimaryBrush}" Foreground="{StaticResource RegionBrush}" Height="60" Width="60" BorderThickness="0" IsTabStop="False" FocusVisualStyle="{x:Null}" Click="CompareBT_Click">
             <Button.Style>
                 <Style TargetType="Button" BasedOn="{StaticResource ButtonIconCircular}">
                     <Setter Property="IsEnabled" Value="True"/>
@@ -60,7 +61,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <ToggleButton Grid.Row="0" Grid.Column="1" x:Name="TopmostBT" VerticalAlignment="Top" HorizontalAlignment="Right" Style="{StaticResource ToggleButtonFlip}" Height="15" Width="15" BorderThickness="0" IsChecked="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=IsTopmost}" Checked="TopmostBT_Checked" Unchecked="TopmostBT_Unchecked">
+        <ToggleButton Grid.Row="0" Grid.Column="1" x:Name="TopmostBT" VerticalAlignment="Top" HorizontalAlignment="Right" Style="{StaticResource ToggleButtonFlip}" Height="15" Width="15" BorderThickness="0" IsChecked="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=IsTopmost}" IsTabStop="False" FocusVisualStyle="{x:Null}" Checked="TopmostBT_Checked" Unchecked="TopmostBT_Unchecked">
             <hc:StatusSwitchElement.CheckedElement>
                 <Border Background="{DynamicResource SuccessBrush}"/>
             </hc:StatusSwitchElement.CheckedElement>
@@ -79,8 +80,8 @@
                 </Grid.RowDefinitions>
                 <hc:TextBox Grid.Column="0" Grid.Row="0" x:Name="Folder1TB" hc:InfoElement.Placeholder="文件夹1" Margin="0,0,5,0"/>
                 <hc:TextBox Grid.Column="0" Grid.Row="2" x:Name="Folder2TB" hc:InfoElement.Placeholder="文件夹2" Margin="0,0,5,0"/>
-                <Button Grid.Column="1" Grid.Row="0" x:Name="Folder1SelBT" Click="Folder1SelBT_Click" Style="{StaticResource ButtonIconCircular}" hc:IconElement.Geometry="{StaticResource SelectFolder}" Background="{DynamicResource PrimaryBrush}" Foreground="{DynamicResource RegionBrush}" BorderThickness="0"/>
-                <Button Grid.Column="1" Grid.Row="2" x:Name="Folder2SelBT" Click="Folder2SelBT_Click" Style="{StaticResource ButtonIconCircular}" hc:IconElement.Geometry="{StaticResource SelectFolder}" Background="{DynamicResource PrimaryBrush}" Foreground="{DynamicResource RegionBrush}" BorderThickness="0"/>
+                <Button Grid.Column="1" Grid.Row="0" x:Name="Folder1SelBT" Click="Folder1SelBT_Click" Style="{StaticResource ButtonIconCircular}" hc:IconElement.Geometry="{StaticResource SelectFolder}" Background="{DynamicResource PrimaryBrush}" Foreground="{DynamicResource RegionBrush}" BorderThickness="0" IsTabStop="False" FocusVisualStyle="{x:Null}"/>
+                <Button Grid.Column="1" Grid.Row="2" x:Name="Folder2SelBT" Click="Folder2SelBT_Click" Style="{StaticResource ButtonIconCircular}" hc:IconElement.Geometry="{StaticResource SelectFolder}" Background="{DynamicResource PrimaryBrush}" Foreground="{DynamicResource RegionBrush}" BorderThickness="0" IsTabStop="False" FocusVisualStyle="{x:Null}"/>
             </Grid>
         </Border>
         <ListBox Grid.Row="4" Grid.ColumnSpan="2" x:Name="FileLB" Style="{StaticResource ListBox.Small}">
@@ -130,7 +131,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <TextBlock Grid.Row="4" Grid.ColumnSpan="2" Text="无项目" Foreground="{DynamicResource SecondaryTextBrush}" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock Grid.Row="4" Grid.ColumnSpan="2" Text="无条目" Foreground="{DynamicResource SecondaryTextBrush}" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock.Style>
                 <Style TargetType="TextBlock">
                     <Setter Property="Visibility" Value="Collapsed"/>
@@ -142,9 +143,12 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
+        <Border Grid.Row="4" Grid.ColumnSpan="2" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4,0,4,0" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <TextBlock Text="双击条目打开文件夹" Margin="3,2"/>
+        </Border>
         <Border Grid.Row="0" Grid.RowSpan="5" Grid.ColumnSpan="2" x:Name="LoadingBD" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4" Visibility="Collapsed">
             <hc:SimplePanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Text="请等待" Foreground="{DynamicResource SecondaryTextBrush}" FontSize="32" Margin="0,0,0,150"/>
+                <TextBlock Text="请稍候…" Foreground="{DynamicResource SecondaryTextBrush}" FontSize="32" Margin="0,0,0,150"/>
                 <hc:LoadingCircle/>
             </hc:SimplePanel>
         </Border>

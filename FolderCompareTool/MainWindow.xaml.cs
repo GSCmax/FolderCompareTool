@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Force.Crc32;
+using Microsoft.Win32;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -186,10 +187,13 @@ namespace FolderCompareTool
         /// <returns></returns>
         private static string GetFileHash(string fullName, int mode)
         {
-            if (mode == 0)
-                return GetFileMD5(fullName);
-            else
-                return GetFileSHA256(fullName);
+            return mode switch
+            {
+                0 => GetFileCRC32(fullName),
+                1 => GetFileMD5(fullName),
+                2 => GetFileSHA256(fullName),
+                _ => string.Empty,
+            };
         }
 
         /// <summary>
@@ -218,6 +222,19 @@ namespace FolderCompareTool
             using FileStream fileStream = new(fullName, FileMode.Open, FileAccess.Read, FileShare.Read);
             using MD5 md5 = MD5.Create();
             byte[] hash = md5.ComputeHash(fileStream);
+            return BitConverter.ToString(hash).Replace("-", "");
+        }
+
+        /// <summary>
+        /// 计算文件的CRC32值
+        /// </summary>
+        /// <param name="fullName"></param>
+        /// <returns></returns>
+        private static string GetFileCRC32(string fullName)
+        {
+            using FileStream fileStream = new(fullName, FileMode.Open, FileAccess.Read, FileShare.Read);
+            using Crc32Algorithm crc32Algorithm = new();
+            byte[] hash = crc32Algorithm.ComputeHash(fileStream);
             return BitConverter.ToString(hash).Replace("-", "");
         }
 
