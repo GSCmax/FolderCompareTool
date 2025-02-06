@@ -1,4 +1,6 @@
-﻿namespace FolderCompareTool
+﻿using System.Runtime.Serialization;
+
+namespace FolderCompareTool
 {
     class AppConfig
     {
@@ -17,5 +19,12 @@
         public int HashAlgorithm { get; set; } = 0;
 
         public bool IsTopmost { get; set; } = false;
+
+        public int RecentPathsCount { get; set; } = 10;
+
+        public NonRepeatObservableCollection<string> RecentPaths { get; set; } = [];
+
+        [OnSerializing]
+        internal void OnSerializing(StreamingContext context) => RecentPaths = new NonRepeatObservableCollection<string>(RecentPaths.Take(RecentPathsCount));
     }
 }

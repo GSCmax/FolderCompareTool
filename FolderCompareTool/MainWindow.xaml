@@ -78,8 +78,8 @@
                     <RowDefinition Height="5"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <hc:TextBox Grid.Column="0" Grid.Row="0" x:Name="Folder1TB" hc:InfoElement.Placeholder="文件夹1" Margin="0,0,5,0"/>
-                <hc:TextBox Grid.Column="0" Grid.Row="2" x:Name="Folder2TB" hc:InfoElement.Placeholder="文件夹2" Margin="0,0,5,0"/>
+                <ComboBox Grid.Column="0" Grid.Row="0" x:Name="Folder1TB" ItemsSource="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=RecentPaths}" IsEditable="True" hc:InfoElement.Placeholder="文件夹1" Style="{StaticResource ComboBoxExtend}" Margin="0,0,5,0"/>
+                <ComboBox Grid.Column="0" Grid.Row="2" x:Name="Folder2TB" ItemsSource="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=RecentPaths}" IsEditable="True" hc:InfoElement.Placeholder="文件夹1" Style="{StaticResource ComboBoxExtend}" Margin="0,0,5,0"/>
                 <Button Grid.Column="1" Grid.Row="0" x:Name="Folder1SelBT" Click="Folder1SelBT_Click" Style="{StaticResource ButtonIconCircular}" hc:IconElement.Geometry="{StaticResource SelectFolder}" Background="{DynamicResource PrimaryBrush}" Foreground="{DynamicResource RegionBrush}" BorderThickness="0" IsTabStop="False" FocusVisualStyle="{x:Null}"/>
                 <Button Grid.Column="1" Grid.Row="2" x:Name="Folder2SelBT" Click="Folder2SelBT_Click" Style="{StaticResource ButtonIconCircular}" hc:IconElement.Geometry="{StaticResource SelectFolder}" Background="{DynamicResource PrimaryBrush}" Foreground="{DynamicResource RegionBrush}" BorderThickness="0" IsTabStop="False" FocusVisualStyle="{x:Null}"/>
             </Grid>

@@ -149,10 +149,19 @@ namespace FolderCompareTool
 
         private void CompareBT_Click(object sender, RoutedEventArgs e)
         {
+            if (Folder1TB.Text == Folder2TB.Text)
+            {
+                MessageBox.Show("请选择不同的文件夹", "警告", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             try
             {
                 files1 = new DirectoryInfo(Folder1TB.Text).GetFiles("*.*", SearchOption.TopDirectoryOnly);
                 files2 = new DirectoryInfo(Folder2TB.Text).GetFiles("*.*", SearchOption.TopDirectoryOnly);
+
+                GlobalDataHelper.appConfig!.RecentPaths.Insert(0, Folder2TB.Text);
+                GlobalDataHelper.appConfig!.RecentPaths.Insert(0, Folder1TB.Text);
 
                 backgroundWorker.RunWorkerAsync();
             }
