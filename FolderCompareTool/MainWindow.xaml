@@ -144,6 +144,16 @@
             </TextBlock.Style>
         </TextBlock>
         <Border Grid.Row="4" Grid.ColumnSpan="2" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4,0,4,0" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Items.Count, ElementName=FileLB}" Value="0">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
             <TextBlock Text="双击条目打开文件夹" Margin="3,2"/>
         </Border>
         <Border Grid.Row="0" Grid.RowSpan="5" Grid.ColumnSpan="2" x:Name="LoadingBD" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4" Visibility="Collapsed">
