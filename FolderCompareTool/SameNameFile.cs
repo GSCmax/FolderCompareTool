@@ -13,5 +13,7 @@
         public string? FileSize1 { get; set; }
 
         public string? FileSize2 { get; set; }
+
+        public System.Windows.Media.Imaging.BitmapSource? FileIcon1 { get; set; }
     }
 }

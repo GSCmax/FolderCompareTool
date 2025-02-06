@@ -88,7 +88,7 @@
                 <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemBaseStyle.Small}">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                     <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
-                    <Setter Property="ContextMenu">
+                    <!--<Setter Property="ContextMenu">
                         <Setter.Value>
                             <ContextMenu>
                                 <MenuItem Header="删除文件夹1中的项">
@@ -103,7 +103,7 @@
                                 </MenuItem>
                             </ContextMenu>
                         </Setter.Value>
-                    </Setter>
+                    </Setter>-->
                     <EventSetter Event="MouseDoubleClick" Handler="FileLBItem_MouseDoubleClick"/>
                 </Style>
             </ListBox.ItemContainerStyle>
@@ -111,6 +111,7 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
                             <ColumnDefinition/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
@@ -119,11 +120,12 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding FileName1}" TextTrimming="CharacterEllipsis"/>
-                        <TextBlock Grid.Column="0" Grid.Row="1" FontSize="10" Text="{Binding FilePath1}" TextTrimming="CharacterEllipsis" Opacity=".6"/>
-                        <TextBlock Grid.Column="0" Grid.Row="2" FontSize="10" Text="{Binding FilePath2}" TextTrimming="CharacterEllipsis" Opacity=".6"/>
-                        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="10" Text="{Binding FileSize1, StringFormat=● 文件大小 {0}}" Opacity=".6"/>
-                        <TextBlock Grid.Column="1" Grid.Row="2" FontSize="10" Text="{Binding FileSize2, StringFormat=● 文件大小 {0}}" Opacity=".6"/>
+                        <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Text="{Binding FileName1}" TextTrimming="CharacterEllipsis"/>
+                        <Image Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Margin="0,0,5,0" Source="{Binding FileIcon1}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="10" Text="{Binding FilePath1}" TextTrimming="CharacterEllipsis" Opacity=".6"/>
+                        <TextBlock Grid.Column="1" Grid.Row="2" FontSize="10" Text="{Binding FilePath2}" TextTrimming="CharacterEllipsis" Opacity=".6"/>
+                        <TextBlock Grid.Column="2" Grid.Row="1" FontSize="10" Text="{Binding FileSize1, StringFormat=● 文件大小 {0}}" Opacity=".6"/>
+                        <TextBlock Grid.Column="2" Grid.Row="2" FontSize="10" Text="{Binding FileSize2, StringFormat=● 文件大小 {0}}" Opacity=".6"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
