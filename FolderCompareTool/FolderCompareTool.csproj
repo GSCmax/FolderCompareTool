@@ -7,6 +7,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>icon.ico</ApplicationIcon>
+    <Authors>GSC</Authors>
+    <Version>0.0.0.1</Version>
+    <Copyright>Copyright © GSC 2025</Copyright>
+    <RepositoryUrl>https://github.com/GSCmax/FolderCompareTool</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
