@@ -8,6 +8,8 @@ namespace FolderCompareTool
 
         public int CompareMode { get; set; } = 0;
 
+        public int HashAlgorithm { get; set; } = 0;
+
         public int FileNameTolerance { get; set; } = 0;
 
         public int FileNameToleranceMax { get; set; } = 5;
@@ -16,9 +18,7 @@ namespace FolderCompareTool
 
         public int FileSizeToleranceMax { get; set; } = 1024;
 
-        public int HashAlgorithm { get; set; } = 0;
-
-        public bool IsTopmost { get; set; } = false;
+        public bool IsTopmost { get; set; } = true;
 
         public int RecentPathCount { get; set; } = 10;
 
