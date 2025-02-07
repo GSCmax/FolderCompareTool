@@ -20,6 +20,7 @@ namespace FolderCompareTool
         List<Tuple<FileInfo, FileInfo>>? matchedPairs;
 
         readonly BackgroundWorker backgroundWorker = new();
+        readonly string desktopIni = "desktop.ini";
 
         public MainWindow()
         {
@@ -71,6 +72,18 @@ namespace FolderCompareTool
                         }
                     }
                 });
+            }
+
+            //文件名过滤
+            if (matchedPairs.Count != 0)
+            {
+                for (int i = matchedPairs.Count - 1; i >= 0; i--)
+                {
+                    if ((matchedPairs[i].Item1.Name == desktopIni) || (matchedPairs[i].Item2.Name == desktopIni))
+                    {
+                        matchedPairs.RemoveAt(i);
+                    }
+                }
             }
 
             //文件大小匹配
