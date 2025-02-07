@@ -36,12 +36,53 @@
                     <ComboBoxItem Content="文件名与大小"/>
                     <ComboBoxItem Content="文件名与哈希"/>
                 </ComboBox>
+                <hc:SimplePanel Grid.Column="0" Width="14" Height="14" Background="{DynamicResource SecondaryRegionBrush}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,9,0">
+                    <hc:SimplePanel.ToolTip>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Text="文件名："/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Text="文件名与大小："/>
+                            <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Text="文件名与哈希："/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Text="仅比对文件名是否在容差范围内（宽松）"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Text="比对文件名与文件大小是否在容差范围内（适中）"/>
+                            <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Text="文件名在容差范围内时，比对文件哈希值（严格相等）"/>
+                        </Grid>
+                    </hc:SimplePanel.ToolTip>
+                    <Path Data="{StaticResource InfoIcon}" Fill="{DynamicResource SecondaryTextBrush}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </hc:SimplePanel>
                 <ComboBox Grid.Column="1" Margin="5,0,0,0" hc:InfoElement.Title="哈希算法" Width="90" SelectedIndex="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=HashAlgorithm}" Style="{StaticResource ComboBoxExtend}">
                     <ComboBoxItem Content="CRC32"/>
                     <ComboBoxItem Content="MD5"/>
                     <ComboBoxItem Content="SHA256"/>
                 </ComboBox>
-                <hc:SimplePanel Grid.Column="1" Width="14" Height="14" Background="{DynamicResource SecondaryRegionBrush}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,9,0" ToolTip="CRC32：速度最快，精度较低（适合绝大多数情况）&#x0a;MD5：速度中等，精度中等&#x0a;SHA256：速度最慢，精度最高">
+                <hc:SimplePanel Grid.Column="1" Width="14" Height="14" Background="{DynamicResource SecondaryRegionBrush}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,9,0">
+                    <hc:SimplePanel.ToolTip>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Text="CRC32："/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Text="MD5："/>
+                            <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Text="SHA256："/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Text="速度最快，精度较低（适合绝大多数情况）"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Text="速度中等，精度中等"/>
+                            <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Text="速度最慢，精度最高"/>
+                        </Grid>
+                    </hc:SimplePanel.ToolTip>
                     <Path Data="{StaticResource InfoIcon}" Fill="{DynamicResource SecondaryTextBrush}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </hc:SimplePanel>
                 <hc:NumericUpDown Grid.Column="2" Margin="5,0,0,0" hc:InfoElement.Title="文件名容差" Width="90" Value="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=FileNameTolerance}" Maximum="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=FileNameToleranceMax}" Minimum="0" Style="{StaticResource NumericUpDownExtend}"/>
