@@ -156,7 +156,7 @@
                     </Style.Triggers>
                 </Style>
             </Border.Style>
-            <TextBlock Text="双击条目打开文件夹" Foreground="{DynamicResource SecondaryTextBrush}" Margin="3,2"/>
+            <TextBlock Text="{Binding Items.Count, ElementName=FileLB, StringFormat=共计 {0} 条，双击条目打开文件夹}" Foreground="{DynamicResource SecondaryTextBrush}" Margin="3,2"/>
         </Border>
         <Border Grid.Row="0" Grid.RowSpan="5" Grid.ColumnSpan="2" x:Name="LoadingBD" BorderBrush="{DynamicResource BorderBrush}" Background="{DynamicResource SecondaryRegionBrush}" BorderThickness="1" CornerRadius="4" Visibility="Collapsed">
             <hc:SimplePanel VerticalAlignment="Center" HorizontalAlignment="Center">

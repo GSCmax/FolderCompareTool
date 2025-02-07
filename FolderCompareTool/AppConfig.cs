@@ -8,7 +8,7 @@ namespace FolderCompareTool
 
         public int CompareMode { get; set; } = 0;
 
-        public int FileNameTolerance { get; set; } = 3;
+        public int FileNameTolerance { get; set; } = 0;
 
         public int FileNameToleranceMax { get; set; } = 5;
 
@@ -20,11 +20,11 @@ namespace FolderCompareTool
 
         public bool IsTopmost { get; set; } = false;
 
-        public int RecentPathsCount { get; set; } = 10;
+        public int RecentPathCount { get; set; } = 10;
 
         public NonRepeatObservableCollection<string> RecentPaths { get; set; } = [];
 
         [OnSerializing]
-        internal void OnSerializing(StreamingContext context) => RecentPaths = new NonRepeatObservableCollection<string>(RecentPaths.Take(RecentPathsCount));
+        internal void OnSerializing(StreamingContext context) => RecentPaths = new NonRepeatObservableCollection<string>(RecentPaths.Take(RecentPathCount));
     }
 }
