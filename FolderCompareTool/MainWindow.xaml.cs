@@ -202,6 +202,38 @@ namespace FolderCompareTool
             Topmost = false;
         }
 
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            SameNameFile snf = ((sender as MenuItem)!.DataContext as SameNameFile)!;
+            DeleteFile(snf.FilePath1!);
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            SameNameFile snf = ((sender as MenuItem)!.DataContext as SameNameFile)!;
+            DeleteFile(snf.FilePath2!);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fullName"></param>
+        private static void DeleteFile(string fullName)
+        {
+            try
+            {
+                File.Delete(fullName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                MessageBox.Show("文件删除成功，请重新执行比对以更新", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
         /// <summary>
         /// 获取文件哈希值
         /// </summary>

@@ -10,6 +10,20 @@
         Icon="/FolderCompareTool;component/icon.ico"
         Height="700" MinHeight="325"
         Width="503" MinWidth="503">
+    <Window.Resources>
+        <ContextMenu x:Key="CM4LBI">
+            <MenuItem Header="删除文件夹1中的项" Click="MenuItem_Click_1">
+                <MenuItem.Icon>
+                    <Path VerticalAlignment="Center" HorizontalAlignment="Center" Fill="{DynamicResource DangerBrush}" Stretch="Uniform" Data="{StaticResource DeleteFillCircleGeometry}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="删除文件夹2中的项" Click="MenuItem_Click_2">
+                <MenuItem.Icon>
+                    <Path VerticalAlignment="Center" HorizontalAlignment="Center" Fill="{DynamicResource DangerBrush}" Stretch="Uniform" Data="{StaticResource DeleteFillCircleGeometry}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+    </Window.Resources>
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -132,22 +146,7 @@
                 <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemBaseStyle.Small}">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                     <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
-                    <!--<Setter Property="ContextMenu">
-                        <Setter.Value>
-                            <ContextMenu>
-                                <MenuItem Header="删除文件夹1中的项">
-                                    <MenuItem.Icon>
-                                        <Path VerticalAlignment="Center" HorizontalAlignment="Center" Fill="{DynamicResource DangerBrush}" Stretch="Uniform" Data="{StaticResource DeleteFillCircleGeometry}"/>
-                                    </MenuItem.Icon>
-                                </MenuItem>
-                                <MenuItem Header="删除文件夹2中的项">
-                                    <MenuItem.Icon>
-                                        <Path VerticalAlignment="Center" HorizontalAlignment="Center" Fill="{DynamicResource DangerBrush}" Stretch="Uniform" Data="{StaticResource DeleteFillCircleGeometry}"/>
-                                    </MenuItem.Icon>
-                                </MenuItem>
-                            </ContextMenu>
-                        </Setter.Value>
-                    </Setter>-->
+                    <Setter Property="ContextMenu" Value="{StaticResource CM4LBI}"/>
                     <EventSetter Event="MouseDoubleClick" Handler="FileLBItem_MouseDoubleClick"/>
                 </Style>
             </ListBox.ItemContainerStyle>
