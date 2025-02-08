@@ -14,6 +14,8 @@
 
         public string? FileSize2 { get; set; }
 
+        public string? NewerFileIndicator { get; set; }
+
         public System.Windows.Media.Imaging.BitmapSource? FileIcon1 { get; set; }
     }
 }

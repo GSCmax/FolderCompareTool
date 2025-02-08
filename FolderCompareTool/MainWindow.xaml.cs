@@ -139,6 +139,7 @@ namespace FolderCompareTool
                             FilePath2 = file.Item2.FullName,
                             FileSize1 = GlobalDataHelper.FormatFileSize(file.Item1.Length),
                             FileSize2 = GlobalDataHelper.FormatFileSize(file.Item2.Length),
+                            NewerFileIndicator = (file.Item1.LastWriteTime > file.Item2.LastWriteTime) ? "⭫" : (file.Item1.LastWriteTime < file.Item2.LastWriteTime) ? "⭭" : "⭥",
                             FileIcon1 = FileIconHelper.Icon2Image(FileIconHelper.GetFileIcon(file.Item1.FullName)!)
                         });
                     }

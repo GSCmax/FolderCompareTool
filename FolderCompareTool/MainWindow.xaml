@@ -31,7 +31,7 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <ComboBox Grid.Column="0" hc:InfoElement.Title="比较模式" Width="115" SelectedIndex="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=CompareMode}" Style="{StaticResource ComboBoxExtend}">
+                <ComboBox Grid.Column="0" hc:InfoElement.Title="比对模式" Width="115" SelectedIndex="{Binding Source={x:Static local:GlobalDataHelper.appConfig}, Path=CompareMode}" Style="{StaticResource ComboBoxExtend}">
                     <ComboBoxItem Content="文件名"/>
                     <ComboBoxItem Content="文件名与大小"/>
                     <ComboBoxItem Content="文件名与哈希"/>
@@ -48,12 +48,12 @@
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Text="文件名："/>
-                            <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Text="文件名与大小："/>
-                            <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Text="文件名与哈希："/>
-                            <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Text="仅比对文件名是否在容差范围内（宽松）"/>
-                            <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Text="比对文件名与文件大小是否在容差范围内（适中）"/>
-                            <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Text="文件名在容差范围内时，比对文件哈希值（严格相等）"/>
+                            <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Text="文件名"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Text="文件名与大小"/>
+                            <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Text="文件名与哈希"/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Text=" : 仅比对文件名是否在容差范围内（宽松）"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Text=" : 比对文件名与文件大小是否在容差范围内（适中）"/>
+                            <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Text=" : 文件名在容差范围内时，比对文件哈希值（严格相等）"/>
                         </Grid>
                     </hc:SimplePanel.ToolTip>
                     <Path Data="{StaticResource InfoIcon}" Fill="{DynamicResource SecondaryTextBrush}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -75,12 +75,12 @@
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Text="CRC32："/>
-                            <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Text="MD5："/>
-                            <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Text="SHA256："/>
-                            <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Text="速度最快，精度较低（适合绝大多数情况）"/>
-                            <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Text="速度中等，精度中等"/>
-                            <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Text="速度最慢，精度最高"/>
+                            <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Text="CRC32"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Text="MD5"/>
+                            <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Text="SHA256"/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Text=" : 速度最快，精度较低（适合绝大多数情况）"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Text=" : 速度中等，精度中等"/>
+                            <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Text=" : 速度最慢，精度最高"/>
                         </Grid>
                     </hc:SimplePanel.ToolTip>
                     <Path Data="{StaticResource InfoIcon}" Fill="{DynamicResource SecondaryTextBrush}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -156,6 +156,7 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
                             <ColumnDefinition/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
@@ -164,12 +165,13 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Text="{Binding FileName1}" TextTrimming="CharacterEllipsis"/>
-                        <Image Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Margin="0,0,5,0" Source="{Binding FileIcon1}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="10" Text="{Binding FilePath1}" TextTrimming="CharacterEllipsis" Opacity=".6"/>
-                        <TextBlock Grid.Column="1" Grid.Row="2" FontSize="10" Text="{Binding FilePath2}" TextTrimming="CharacterEllipsis" Opacity=".6"/>
-                        <TextBlock Grid.Column="2" Grid.Row="1" FontSize="10" Text="{Binding FileSize1, StringFormat=● 文件大小 {0}}" Opacity=".6"/>
-                        <TextBlock Grid.Column="2" Grid.Row="2" FontSize="10" Text="{Binding FileSize2, StringFormat=● 文件大小 {0}}" Opacity=".6"/>
+                        <TextBlock Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Text="{Binding FileName1}" TextTrimming="CharacterEllipsis"/>
+                        <Image Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Source="{Binding FileIcon1}" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" FontSize="22" Margin="0,-1" Text="{Binding NewerFileIndicator}" Opacity=".6"/>
+                        <TextBlock Grid.Column="2" Grid.Row="1" FontSize="10" Text="{Binding FilePath1}" TextTrimming="CharacterEllipsis" Opacity=".6"/>
+                        <TextBlock Grid.Column="2" Grid.Row="2" FontSize="10" Text="{Binding FilePath2}" TextTrimming="CharacterEllipsis" Opacity=".6"/>
+                        <TextBlock Grid.Column="3" Grid.Row="1" FontSize="10" Text="{Binding FileSize1, StringFormat=● {0}}" Opacity=".6"/>
+                        <TextBlock Grid.Column="3" Grid.Row="2" FontSize="10" Text="{Binding FileSize2, StringFormat=● {0}}" Opacity=".6"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
